@@ -1,26 +1,11 @@
 <template>
   <div id="app">
+    <h1>Next Lesson: 43</h1>
     <div class="todo-wrapper">
       <div class="todo-container">
-        <div class="todo-list">
-          <div class="todo-item">
-            <div class="todo-item-content">
-              <div class="todo-item-content-title">Walk the dog</div>
-              <div class="todo-item-content-description">Go to the forest near the zoo.</div>
-            </div>
-          </div>
-          <div class="todo-item">
-            <div class="todo-item-content">
-              <div class="todo-item-content-title">Buy some bread</div>
-              <div class="todo-item-content-description">Whole grain bread would be good.</div>
-            </div>
-          </div>
-          <div class="todo-item">
-            <div class="todo-item-content">
-              <div class="todo-item-content-title">Learn programming</div>
-              <div class="todo-item-content-description">Starting tomorrow would be best.</div>
-            </div>
-          </div>
+        <ToDoList />
+        <div class="todo-create-btn-container">
+          <FormCreateToDoItem />
         </div>
       </div>
     </div>
@@ -29,10 +14,15 @@
 
 <script>
 import playground from './playground.js';
+import FormCreateToDoItem from './components/FormCreateToDoItem.vue';
+import ToDoList from './components/ToDoList.vue';
 
 export default {
   name: 'App',
-  // function run automatically
+  components: {
+    FormCreateToDoItem,
+    ToDoList,
+  },
   created() {
     playground();
   },
@@ -40,13 +30,36 @@ export default {
 </script>
 
 <style lang="less">
+@red: red;
+@darkGray: #2c3e50;
+@lightGray: #ededed;
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: @darkGray;
   margin-top: 60px;
+}
+
+.isPrimary {
+  background-color: green !important;
+}
+
+.app-button {
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 8px;
+  border: solid 1px purple;
+  background-color: purple;
+  color: white;
+  font-weight: bold;
+  &:hover {
+    cursor: pointer;
+    background-color: white;
+    color: purple;
+  }
 }
 
 .todo {
@@ -57,25 +70,15 @@ export default {
   }
 
   &-container {
+    display: flex;
+    flex-direction: column;
     width: 400px;
     min-height: 400px;
-    background-color: #ededed;
+    background-color: @lightGray;
     border-radius: 8px;
   }
-  &-item {
-    background-color: gray;
-    min-height: 70px;
+  &-create-btn-container {
     margin: 10px;
-    padding: 10px;
-    color: white;
-    border-radius: 8px;
-    font-size: 2rem;
-    &-content-title {
-      font-weight: bold;
-    }
-    &-content-description {
-      font-size: 1.5rem;
-    }
   }
 }
 </style>
