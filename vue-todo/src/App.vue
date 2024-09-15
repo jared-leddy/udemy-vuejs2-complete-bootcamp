@@ -3,9 +3,9 @@
     <h1>Next Lesson: 43</h1>
     <div class="todo-wrapper">
       <div class="todo-container">
-        <ToDoList />
+        <ToDoList :items="todoItems" />
         <div class="todo-create-btn-container">
-          <FormCreateToDoItem />
+          <FormCreateToDoItem @formSubmitted="createToDoItem" />
         </div>
       </div>
     </div>
@@ -23,8 +23,31 @@ export default {
     FormCreateToDoItem,
     ToDoList,
   },
+  data() {
+    return {
+      todoItems: [
+        {
+          title: 'Walk the dog',
+          description: 'Go to the forest near the zoo.',
+        },
+        {
+          title: 'Buy some bread',
+          description: 'Whole grain bread would be good.',
+        },
+        {
+          title: 'Learn programming',
+          description: 'Starting tomorrow would be best.',
+        },
+      ],
+    };
+  },
   created() {
     playground();
+  },
+  methods: {
+    createToDoItem(item) {
+      this.todoItems.push(item);
+    },
   },
 };
 </script>
@@ -46,19 +69,44 @@ export default {
 .isPrimary {
   background-color: green !important;
 }
+.isWarning {
+  background-color: #ffa753 !important;
+}
+.isDanger {
+  background-color: #ff5a5a !important;
+}
 
-.app-button {
-  font-size: 20px;
-  padding: 10px;
-  border-radius: 8px;
-  border: solid 1px purple;
-  background-color: purple;
-  color: white;
-  font-weight: bold;
-  &:hover {
-    cursor: pointer;
-    background-color: white;
-    color: purple;
+.app {
+  &-button {
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    border: solid 1px purple;
+    background-color: purple;
+    color: white;
+    font-weight: bold;
+    &:hover {
+      cursor: pointer;
+      background-color: white;
+      color: purple;
+    }
+  }
+  &-error {
+    color: red;
+  }
+  &-form {
+    .label {
+      display: block;
+      font-size: 1.25em;
+      font-weight: bold;
+    }
+    .form-input {
+      padding: 10px;
+      font-size: 1.2em;
+    }
+    .form-control {
+      margin-bottom: 10px;
+    }
   }
 }
 

@@ -21,10 +21,14 @@
           rows="5"
         ></textarea>
       </div>
+      <div class="app-error">
+        <div class="form-error">
+          {{ formError }}
+        </div>
+      </div>
       <button
         type="submit"
         class="app-button isPrimary"
-        @click="createToDoItem"
       >
         Submit
       </button>
@@ -46,30 +50,38 @@ export default {
         title: '',
         description: '',
       },
+      formError: '',
     };
   },
+  computed: {
+    isFormValid() {
+      return this.formData.title.length > 8 && this.formData.description.length > 10 ? true : false;
+    },
+  },
   methods: {
+    resetFormData() {
+      this.formData = {
+        title: '',
+        description: '',
+      };
+    },
     submitFormHandler() {
-      console.log(this.formData);
-      this.$refs.modal.isModalOpen = false; // Close modal after submission
+      if (this.isFormValid) {
+        this.formError = '';
+        this.$refs.modal.isModalOpen = false; // Close modal after submission
+        this.$emit('formSubmitted', { ...this.formData });
+        this.resetFormData();
+      } else {
+        this.formError =
+          'Form Error! Title needs to be longer than 8 characters and description longer than 10 characters.';
+      }
     },
   },
 };
 </script>
 
 <style scoped lang="less">
-.app-form {
-  .label {
-    display: block;
-    font-size: 1.25em;
-    font-weight: bold;
-  }
-  .form-input {
-    padding: 10px;
-    font-size: 1.2em;
-  }
-  .form-control {
-    margin-bottom: 10px;
-  }
+.form-error {
+  margin: 1rem;
 }
 </style>

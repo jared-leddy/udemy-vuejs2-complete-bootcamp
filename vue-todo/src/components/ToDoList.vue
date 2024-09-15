@@ -2,7 +2,7 @@
   <!-- ToDoList.vue -->
   <div class="todo-list">
     <ToDoItem
-      v-for="(item, index) in todoItems"
+      v-for="(item, index) in items"
       :key="index"
       :title="item.title"
       :description="item.description"
@@ -18,23 +18,11 @@ export default {
   components: {
     ToDoItem,
   },
-  data() {
-    return {
-      todoItems: [
-        {
-          title: 'Walk the dog',
-          description: 'Go to the forest near the zoo.',
-        },
-        {
-          title: 'Buy some bread',
-          description: 'Whole grain bread would be good.',
-        },
-        {
-          title: 'Learn programming',
-          description: 'Starting tomorrow would be best.',
-        },
-      ],
-    };
+  props: {
+    items: {
+      type: Array,
+      required: true,
+    },
   },
 };
 </script>
